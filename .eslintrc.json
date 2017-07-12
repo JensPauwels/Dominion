@@ -1,8 +1,15 @@
 {
-    "extends": "airbnb-base",
-    "parser": "babel-eslint",
-    "env": {
-      "browser": true,
-      "mocha": true
-    }
+  "extends": "airbnb-base",
+  "parser": "babel-eslint",
+  "rules": {
+        "no-console": "off",
+        "func-names": "off",
+        "import/newline-after-import": "off"
+  },
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "jquery": true
+  }
 }

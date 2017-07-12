@@ -2,9 +2,9 @@
   "name": "electron-quick-start",
   "version": "1.0.0",
   "description": "A minimal Electron application",
-  "main": "./backend/main.js",
+  "main": "./electron.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron . | nodemon ./backend/server.js "
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -23,6 +23,11 @@
   },
   "dependencies": {
     "babel-eslint": "^7.2.3",
-    "electron": "~1.6.2"
+    "body-parser": "^1.17.2",
+    "electron": "~1.6.2",
+    "express": "^4.15.3",
+    "express-session": "^1.15.3",
+    "nodemon": "^1.11.0",
+    "socket.io": "^2.0.3"
   }
 }

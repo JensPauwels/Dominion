@@ -9,6 +9,20 @@
 </head>
 
 <h1>Dominion</h1>
+<script>
+  if (typeof module === 'object') {
+    window.module = module;
+    module = undefined;
+  }
+</script>
+<script src="assets/js/jquery-3.2.1.min.js"></script>
+<script src="assets/js/script.js"></script>
+
+<!-- Insert this line after script imports -->
+<script>
+  if (window.module) module = window.module;
+</script>
+
 
 <body>
 
