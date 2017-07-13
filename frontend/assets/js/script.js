@@ -1,26 +1,22 @@
 const socket = io.connect('http://localhost:9999/');
 
-const addMesasge = (data) => {
+socket.on('loginStatus', (data) => {
+  if (!data.status) alert(`user doens't exists`);
+  else alert(`logged in`);
   console.log(data);
-  $('#messasges').append(`${data.username}: ${data.message}<br>`);
-};
-
-socket.on('newMessage', (data) => {
-  addMesasge(data);
 });
 
-const addMessage = (e) => {
+const login = (e) => {
   e.preventDefault();
   const data = {
     username: $('#username').val(),
-    message: $('#message').val(),
+    password: $('#password').val()
   };
+  if(data.username === '' || data.password === '') alert('both fields are required');
+  else socket.emit('login', data);
 
-
-  socket.emit('sendMessage', data);
-  addMesasge(data);
 };
 
 $(() => {
-  $('#sendMessage').on('submit', addMessage);
+  $('#sendMessage').on('submit', login);
 });
