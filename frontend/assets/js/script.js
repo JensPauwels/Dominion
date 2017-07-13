@@ -1,12 +1,26 @@
-const ajaxCall = function () {
-  return $.ajax({
-    url: 'http://localhost:8080/data',
-    type: 'GET',
-    dataType: 'JSON',
-  });
+const socket = io.connect('http://localhost:9999/');
+
+const addMesasge = (data) => {
+  console.log(data);
+  $('#messasges').append(`${data.username}: ${data.message}<br>`);
 };
 
+socket.on('newMessage', (data) => {
+  addMesasge(data);
+});
+
+const addMessage = (e) => {
+  e.preventDefault();
+  const data = {
+    username: $('#username').val(),
+    message: $('#message').val(),
+  };
+
+
+  socket.emit('sendMessage', data);
+  addMesasge(data);
+};
 
 $(() => {
-  ajaxCall().done(res => console.log(res));
+  $('#sendMessage').on('submit', addMessage);
 });

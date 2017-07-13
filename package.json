@@ -4,7 +4,8 @@
   "description": "A minimal Electron application",
   "main": "./electron.js",
   "scripts": {
-    "start": "electron . | nodemon ./backend/server.js "
+    "start": "electron .",
+    "run-server": "nodemon ./backend/server.js"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [

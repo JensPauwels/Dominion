@@ -1,19 +1,21 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const session = require('express-session');
 const app = express();
 const server = require('http').createServer(app);
+const io = require('socket.io').listen(server);
+const users = [];
 
-app.use(express.static('public'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(session({ secret: 'shhh' }));
-app.set('view engine', 'ejs');
+server.listen(process.env.PORT || 9999);
+console.log('Server running...');
+app.get('/', (req, res) => {
+  res.sendFile(`${__dirname}/index.html`);
+});
 
-server.listen(8080, () => console.log('running on 8080'));
+io.sockets.on('connection', (socket) => {
+  console.log(socket);
+  console.log(`${socket} is connected`);
 
-app.get('/data', (req, res) => {
-  const data = ['jos', 'rudy', 'frederiek'];
-  res.json(data);
-  // res.send(data);
+  socket.on('sendMessage', (obj) => {
+    console.log(obj);
+    socket.broadcast.emit('newMessage', obj);
+  });
 });
