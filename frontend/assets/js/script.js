@@ -1,9 +1,33 @@
 const socket = io.connect('http://localhost:9999/');
 
+const displayLoginScreen = function () {
+
+};
+
+const displayUserList = function (userList) {
+  let newUsers = '';
+  userList.forEach(user => newUsers += `<p>${user}</p>`);
+  $('html #userList').html(newUsers);
+};
+
+const loadLobbyPage = function (userList) {
+  $.get('./lobbyScreen.html',(htmlData) => {
+    $('main').html(htmlData);
+    displayUserList(userList);
+  });
+};
+
+socket.on('updateUserList', (data) => {
+  if(data !== undefined){
+    displayUserList(data);
+  };
+});
+
 socket.on('loginStatus', (data) => {
-  if (!data.status) alert(`user doens't exists`);
-  else alert(`logged in`);
   console.log(data);
+  if (data.status) {
+    if (data.userList !== undefined) loadLobbyPage(data.userList);
+  ;}
 });
 
 const login = (e) => {
@@ -14,9 +38,25 @@ const login = (e) => {
   };
   if(data.username === '' || data.password === '') alert('both fields are required');
   else socket.emit('login', data);
+};
 
+const logout = function (e) {
+  e.preventDefault();
+  socket.emit('logout');
+  loadLogin();
+};
+
+const loadLogin = function () {
+  console.log('hmmm');
+  $.get('./login.html',(htmlData) => {
+    console.log('is this happening');
+    $('main').html(htmlData);
+  });
 };
 
 $(() => {
-  $('#sendMessage').on('submit', login);
+  console.log('wtf is happening');
+  loadLogin();
+  $('body').on('click','#loginBtn', login);
+  $('body').on('click','#logout',logout);
 });

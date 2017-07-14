@@ -1,0 +1,17 @@
+
+h1{
+  text-align: center;
+}
+
+#username, #password{
+  margin: 5px;
+}
+
+
+#login{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 60%;
+  margin: 0 auto;
+}

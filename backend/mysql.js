@@ -5,6 +5,7 @@ const connection =  mysql.createConnection({
   password : '',
   database : 'Dominion'
 });
+
 connection.connect();
 
 const querys = {
