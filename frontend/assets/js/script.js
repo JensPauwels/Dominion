@@ -1,4 +1,4 @@
-const socket = io.connect('http://localhost:9999/');
+const socket = io.connect('http://nodeprojects.me:80/');
 
 const displayLoginScreen = function () {
 
