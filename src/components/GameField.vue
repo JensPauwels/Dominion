@@ -14,6 +14,7 @@
     name: 'GameField',
     data() {
       return {
+        game: {},
         name: '',
         title: 'GameField'
       }
@@ -27,9 +28,7 @@
     },
     created: function() {
       const gameId = this.$session.get('gameId');
-      console.log(gameId);
       const id = this.$session.get('user');
-      console.log(id);
     }
   }
 </script>

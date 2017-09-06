@@ -13,8 +13,12 @@
 /* eslint-disable */
 
   const acceptInvite = function (instance, obj) {
-    console.log('accepting');
     instance.$socket.emit('acceptingInvite', obj);
+  };
+
+  const declineInvite = function (instance, obj) {
+    obj.msg = "decline";
+    instance.$socket.emit('declineInvite', obj);
   };
 
   export default {
@@ -28,28 +32,22 @@
     },
     sockets: {
       init(currentUser){
-        console.log(currentUser);
         this.currentUser = currentUser;
       },
       updateUserList(userList) {
-        console.log(userList);
         if (userList !== undefined) this.userList = userList;
       },
       invite(obj){
-        // TODO: pop up met modal waarbij je on close niet accepteerd en zend dat je declined
-        // TODO: on accept naar gamefield gaan met die andere speler
-        console.log(obj);
-        acceptInvite(this, obj);
+        declineInvite(this, obj);
+        //acceptInvite(this, obj);
       },
       redirectToGameField(gameId){
-
         this.$session.set('gameId', gameId);
         window.location.href = '#/gameField';
       },
     },
     methods: {
       logout() {
-        console.log('loggout');
         this.$socket.emit('logout');
         window.location.href = '#/login';
       },
@@ -58,8 +56,10 @@
       },
     },
     created() {
-      console.log('reloading');
-      const id = this.$session.get('user');
+      const user = this.$session.get('user');
+      /*setTimeout(function () {
+        if (Object.keys(this.currentUser).length === 0 ) this.$socket.emit('init', user);
+      }, 50);*/
       this.$socket.emit('update');
     },
   };
