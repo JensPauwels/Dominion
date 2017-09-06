@@ -1,0 +1,128 @@
+{
+  "users": [
+    {
+      "username" : "Tiziano",
+      "id" : 1,
+      "turn" : 1,
+      "gameId" : 1,
+      "victoryPoints" : 3,
+      "deck" : [
+        {
+          "name" : "Copper",
+          "action" : "Currency",
+          "value" : 1,
+          "amount" : 7
+        },
+        {
+          "name" : "Estate",
+          "action" : "Points",
+          "value" : 1,
+          "amount" : 3
+        }
+      ],
+      "hand" : [
+        {
+          "name" : "Copper",
+          "action" : "Currency",
+          "value" : 1,
+          "amount" : 3
+        },
+        {
+          "name" : "Estate",
+          "action" : "Points",
+          "value" : 1,
+          "amount" : 2
+        }
+      ]
+    },
+    {
+      "username" : "Jens",
+      "id" : 2,
+      "turn" : 0,
+      "gameId" : 1,
+      "victoryPoints" : 3,
+      "deck" : [
+        {
+          "name" : "Copper",
+          "action" : "Currency",
+          "value" : 1,
+          "amount" : 7
+        },
+        {
+          "name" : "Estate",
+          "action" : "Points",
+          "value" : 1,
+          "amount" : 3
+        }
+      ],
+      "hand" : [
+        {
+          "name" : "Copper",
+          "action" : "Currency",
+          "value" : 1,
+          "amount" : 4
+        },
+        {
+          "name" : "Estate",
+          "action" : "Points",
+          "value" : 1,
+          "amount" : 1
+        }
+      ]
+    }
+  ],
+  "actionCards" : [
+
+  ],
+  "passiveCards" : [
+    {
+      "name" : "Copper",
+      "action" : "Currency",
+      "value" : 1,
+      "cost" : 0,
+      "amount" : 50
+    },
+    {
+      "name" : "Silver",
+      "action" : "Currency",
+      "value" : 2,
+      "cost" : 3,
+      "amount" : 40
+    },
+    {
+      "name" : "Gold",
+      "action" : "Currency",
+      "value" : 3,
+      "cost" : 6,
+      "amount" : 40
+    },
+    {
+      "name" : "Estate",
+      "action" : "Points",
+      "value" : 1,
+      "cost" : 2,
+      "amount" : 8
+    },
+    {
+      "name" : "Duchies",
+      "action" : "Points",
+      "value" : 3,
+      "cost" : 5,
+      "amount" : 8
+    },
+    {
+      "name" : "Province",
+      "action" : "Points",
+      "value" : 6,
+      "cost" : 8,
+      "amount" : 8
+    },
+    {
+      "name" : "Curse",
+      "action" : "Points",
+      "value" : -1,
+      "cost" : 0,
+      "amount" : 10
+    }
+  ]
+}
