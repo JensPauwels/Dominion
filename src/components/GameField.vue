@@ -14,15 +14,6 @@
         </div>
       </div>
       <card v-for="card in passiveCards" :card="card"></card>
-<!--TODO Components maken!
-        kaarten naast elkaar zetten met een fancy achtergrondje op klikbaar maken!-->
-    <!-- <ul v-for="user in users" v-if="user.username == player" id="yourHand">
-      <li v-for="card in user.hand">
-        <a href='#'>{{ card.name }}</a>
-        <span>{{ card.value }}</span>
-        <span>{{ card.amount }}</span>
-      </li>
-    </ul> -->
     <div v-for="user in users" v-if="user.username == player">
       <card v-for="card in user.hand" :card="card"></card>
     </div>
