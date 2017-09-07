@@ -8,6 +8,7 @@ Vue.config.productionTip = false;
 
 /* eslint-disable */
 
+
 const validation = true;
 
 router.beforeEach((to, from, next) => {

@@ -23,12 +23,12 @@
     },
     sockets: {
       loginAccepted: function (data) {
-        console.log(data);
-        console.log('login accepted');
+        this.$session.set('token', data);
+        window.location.href = '#/lobby';
       },
-      loginDeclined: function (data) {
-        console.log(data);
-        console.log('login declined');
+      loginDeclined: function (err) {
+        console.log(err);
+
       },
     },
     methods: {
@@ -36,23 +36,12 @@
         e.preventDefault();
         const username = this.loginDetails.name;
         const password = this.loginDetails.password;
-        this.$session.set('user', {username, password});
         if (username !== undefined) this.$socket.emit('login', {username, password});
-        //welse // TODO: error inputfields
+        //else // TODO: error inputfields
       },
     },
     created: function(){
+
     },
   };
 </script>
-
-<style scoped>
-  .login{
-    text-align: center;
-  }
-
-  .login ul {
-    list-style: none;
-  }
-
-</style>
