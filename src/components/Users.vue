@@ -1,6 +1,18 @@
 <template>
-  <div id='card'>
-    <h4>{{}}</h4>
-    <p>{{}}</p>
+  <div id='userInfo'>
+    <h4>{{ user.username }}</h4>
+    <p>{{ user.victoryPoints }}</p>
   </div>
 </template>
+
+<script>
+  export default {
+    name: 'card',
+    data() {
+      return {
+
+      };
+    },
+    props: ['user'],
+  };
+</script>

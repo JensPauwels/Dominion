@@ -1,25 +1,17 @@
 <template>
   <div class="gameField">
     <h1>{{ title }}</h1>
+    <user v-for="user in users" :user="user"></user>
     <div id="game">
 
-      <div>
-        <h4>You: {{ player }}</h4>
-        <div v-for="user in users" v-if="user.username === player">
-          <p>Victory Points: {{user.victoryPoints}}</p>
-        </div>
-        <h4>Opponent: {{ opponent }}</h4>
-        <div v-for="user in users" v-if="user.username === opponent">
-          <p>Victory Points: {{ user.victoryPoints }}</p>
-        </div>
+      <card v-for="card in cardsLeft" :card="card" v-on:click=""></card>
+
+      <div v-for="user in users" v-if="user.username === player">
+        <card v-for="card in user.hand" :card="card" v-on:click=""></card>
       </div>
-      <card v-for="card in passiveCards" :card="card"></card>
-    <div v-for="user in users" v-if="user.username == player">
-      <card v-for="card in user.hand" :card="card"></card>
-    </div>
 
     </div>
-    <button href="#" v-on:click='endTurn'>End turn</button>
+    <button href="#" v-on:click='endTurn'>End {{ action }} round.</button>
     <a href="/login">Login</a>
   </div>
 </template>
@@ -27,44 +19,35 @@
 
 <script>
   /* eslint-disable */
-
-  //RandomNumber config
-  let rn = require('random-number');
-  let gen = rn.generator({
-    min : 0,
-    max : 1,
-    integer: true
-  });
-
-  import data from '../api.json';
   import card from './Card';
-
-  const changeUser = (activePlayer, users) => {
-    //TODO ipv op mijn scherm user te veranderen alle veranderde data doorsturen naar de server.
-    return users.find(player => player.username !== activePlayer).username;
-  }
-
-  const userStart = (rn, users) => {
-    console.log(rn);
-    return users[rn].username;
-  }
+  import user from './Users';
 
   export default {
     name: 'GameField',
     data() {
       return {
         name: '',
-        player : "Tiziano",
-        opponent : "Jens",
+        player : '',
+        opponent : '',
         title : 'Game',
-        users : data.users,
-        passiveCards : data.passiveCards
+        users : [],
+        cardsLeft : [],
+        action: 'action'
       }
     },
     components: {
-      card
+      card,
+      user
     },
     sockets: {
+      startGameInfo: function (users, cardsLeft) {
+        console.log(cardsLeft);
+        users.forEach(user => {
+          this.users.push(user);
+        })
+        this.player = "Frank";
+        this.cardsLeft = cardsLeft;
+      }
     },
     methods: {
       sendName: function () {
@@ -72,15 +55,14 @@
       },
       endTurn: function(e) {
         e.preventDefault();
-        this.player = changeUser(this.player, this.users);
-        this.opponent = changeUser(this.opponent, this.users);
-        console.log(`it's ${this.player} his turn`);
+        //Dit nog naar de server verplaatsen.
+        if (this.action === 'buy') this.action = 'turn';
+        else if (this.action === 'turn') this.$socket.emit('endTurn');
+        else this.action = 'buy';
       },
     },
     created: function() {
-      this.player = userStart(gen(), data.users);
-      this.opponent = changeUser(this.player, this.users)
-      console.log(`${this.player} will be the starting player.`);
+      this.$socket.emit('startGame');
     }
   }
 </script>
