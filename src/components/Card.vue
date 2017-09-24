@@ -1,5 +1,5 @@
 <template>
-  <div id='card'>
+  <div v-on:click="onClick" id='card'>
     <p>{{ card.name }}</p>
     <p>{{ card.cost }}</p>
     <p>{{ card.action }}</p>
@@ -13,8 +13,12 @@
     name: 'card',
     data() {
       return {
-
       };
+    },
+    methods: {
+      onClick() {
+        this.$emit('cardClick', this.card);
+      },
     },
     props: ['card'],
   };

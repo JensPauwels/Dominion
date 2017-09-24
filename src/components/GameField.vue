@@ -3,8 +3,9 @@
     <h1>{{ title }}</h1>
     <user v-for="user in users" :user="user"></user>
     <div id="game">
-
-      <card v-for="card in cardsLeft" :card="card" v-on:click=""></card>
+      <div class="passiveCards">
+        <card @cardClick="cardEvent" v-for="card in cardsLeft" :card="card" v-on:click=""></card>
+      </div>
 
       <div v-for="user in users" v-if="user.username === player">
         <card v-for="card in user.hand" :card="card" v-on:click=""></card>
@@ -40,13 +41,13 @@
       user
     },
     sockets: {
-      startGameInfo: function (users, cardsLeft) {
-        console.log(cardsLeft);
-        users.forEach(user => {
+      startGameInfo: function (gameInfo) {
+        console.log(gameInfo);
+        gameInfo.users.forEach(user => {
           this.users.push(user);
         })
         this.player = "Frank";
-        this.cardsLeft = cardsLeft;
+        this.cardsLeft = gameInfo.cardsLeft;
       }
     },
     methods: {
@@ -57,9 +58,13 @@
         e.preventDefault();
         //Dit nog naar de server verplaatsen.
         if (this.action === 'buy') this.action = 'turn';
-        else if (this.action === 'turn') this.$socket.emit('endTurn');
+        else if (this.action === 'turn') this.$socket.emit('endTurn', this);
         else this.action = 'buy';
       },
+      cardEvent: function (card) {
+        console.log(card.action, card.location);
+        this.$socket.emit('cardPlayed', card); //Hier zat ik.
+      }
     },
     created: function() {
       this.$socket.emit('startGame');
@@ -72,5 +77,8 @@
   display: flex;
   justify-content: center;
   cursor: pointer;
+}
+#card:hover {
+  color: red;
 }
 </style>
