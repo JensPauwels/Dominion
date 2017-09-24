@@ -2,8 +2,7 @@
   <div class="gameField">
     <h1>{{ title }}</h1>
     <input type="text" v-model="name">
-    <button v-on:click="sendName"></button>
-    <a href="/login">Login</a>
+    <button v-on:click="updateGame">Update!</button>
   </div>
 </template>
 
@@ -20,15 +19,20 @@
       }
     },
     sockets: {
+      updateGame: function (obj) {
+        console.log(obj);
+      },
     },
     methods: {
-      sendName: function () {
-        this.$socket.emit('test', this.name);
+      updateGame: function () {
+        this.$socket.emit('updateGame', {
+          gameId: this.$session.get('gameId'),
+          name: this.name
+        });
       }
     },
     created: function() {
       const gameId = this.$session.get('gameId');
-      const id = this.$session.get('user');
     }
   }
 </script>

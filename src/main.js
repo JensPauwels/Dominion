@@ -3,6 +3,8 @@ import vueResource from 'vue-resource';
 import App from './App';
 import router from './router/routes';
 
+require('./scss/global.scss');
+
 Vue.use(vueResource);
 Vue.config.productionTip = false;
 

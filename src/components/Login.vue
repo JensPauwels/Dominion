@@ -1,13 +1,14 @@
 <template>
-  <div class="login">
-    <h1> {{title}}</h1>
-    <form v-on:submit="login" action="#">
+  <section class='login'>
+
+    <form v-on:submit="login" action="#" autocomplete="off">
+      <h1> Dominion</h1>
       <input type="email" v-model="loginDetails.name" name="name" placeholder="Email">
       <input type="password" v-model="loginDetails.password" name="secondName" placeholder="password">
       <input type="submit" value="Login">
-      <a href="#/register">Register</a>
+      <a href="#/register" class="specialBtn">Register</a>
     </form>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -18,7 +19,6 @@
     data() {
       return {
         loginDetails: {},
-        title: 'Login Screen',
       };
     },
     sockets: {
@@ -45,3 +45,6 @@
     },
   };
 </script>
+<style media="screen">
+  background-image: url('/src/images/castle.jpg');
+</style>

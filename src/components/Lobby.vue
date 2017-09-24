@@ -1,8 +1,10 @@
 <template>
   <div class="lobby">
   <h1>{{ title }}</h1>
-  <h2>current user: {{currentUser}}</h2>
-  <div class="userInfo"  v-for="user in userList" v-on:click="updateSelected(user)">
+  <span>current user: {{currentUser}}</span>
+
+  <h2>Active users</h2>
+  <div class="userInfo"  v-for="user in userList" v-on:click="inviteGame(user)">
     <p>{{user}}</p>
   </div>
   <button v-on:click="logout">logout</button>
@@ -38,12 +40,13 @@
         if (!bool) window.location.href = "#/login";
       },
       updateUserList(userList) {
-        console.log(userList);
+        console.log(userList, "userlist");
         if (userList !== undefined) this.userList = userList;
       },
       invite(obj){
-        declineInvite(this, obj);
-        //acceptInvite(this, obj);
+        console.log(obj);
+        if (window.confirm(`${obj.sender} wants to play a game`)) acceptInvite(this, obj);
+        else declineInvite(this, obj);
       },
       redirectToGameField (gameId) {
         this.$session.set('gameId', gameId);
@@ -55,7 +58,7 @@
         this.$socket.emit('logout', this.$session.get('token'));
         window.location.href = '#/login';
       },
-      updateSelected(obj) {
+      inviteGame(obj) {
         this.$socket.emit('invite', obj);
       },
     },

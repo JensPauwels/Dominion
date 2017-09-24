@@ -9,8 +9,8 @@ import Registration from '@/components/Register';
 
 Vue.use(VueSessionStorage);
 Vue.use(Router);
-// Vue.use(VueSocketio, 'http://localhost:9999/');
-Vue.use(VueSocketio, 'http://nodeprojects.me/');
+Vue.use(VueSocketio, 'http://localhost:9999/');
+// Vue.use(VueSocketio, 'http://nodeprojects.me/');
 
 const Route = function (path, name, component, validation) {
   return {

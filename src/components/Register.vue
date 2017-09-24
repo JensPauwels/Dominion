@@ -1,5 +1,5 @@
   <template>
-    <div class="login">
+    <div class="register">
       <h1> {{title}}</h1>
       <h1 v-if="error">{{errorMsg}}</h1>
       <form v-on:submit="register" action="#">
@@ -7,7 +7,11 @@
         <input type="email" v-model="loginDetails.email" name="email" placeholder="email">
         <input type="password" v-model="loginDetails.password" name="secondName" placeholder="password">
         <input type="password" v-model="loginDetails.passwordValidation" name="secondName" placeholder="retype password">
-        <input type="submit" value="Register">
+        <div class="buttons">
+          <a href="#/login" class="specialBtn">Back</a>
+          <input type="submit" value="Register">
+        </div>
+
       </form>
     </div>
   </template>
